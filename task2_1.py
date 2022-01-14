@@ -27,7 +27,7 @@ def get_data(path, mask, column_list):
     for file in glob.glob(f'{path}/{mask}'):
         print(f'{file}')
         impotent_data_from_file = []
-        with open(file) as csv_file:
+        with open(file, encoding='cp1251') as csv_file:
             csv_reader = csv.reader(csv_file)
             for row in csv_reader:
                 row_data = row[0].split(sep=':')
@@ -45,10 +45,11 @@ def get_data(path, mask, column_list):
 
 
 def write_to_csv(path_to_csv, data_for_csv):
-    with open(path_to_csv, 'w') as csv_file:
+    with open(path_to_csv, 'w', encoding='utf-8') as csv_file:
         csv_writer = csv.writer(csv_file)
-        for row in data_for_csv:
-            csv_writer.writerow(row)
+        csv_writer.writerows(data_for_csv)
+        # for row in data_for_csv:
+        #     csv_writer.writerow(row)
     print(f'{data_for_csv} - записано в файл {path_to_csv}')
 
 
@@ -66,10 +67,10 @@ path_to_csv = f'{path}/{csv_file_name}'
 main_data, main_dict = get_data(path, mask, col_name_dir)
 write_to_csv(path_to_csv, main_data)
 
-os_prod_list = main_dict[col_name_dir[0]]
-os_name_list = main_dict[col_name_dir[1]]
-os_code_list = main_dict[col_name_dir[2]]
-os_type_list = main_dict[col_name_dir[3]]
+os_prod_list = [main_dict[col_name_dir[0]]]
+os_name_list = [main_dict[col_name_dir[1]]]
+os_code_list = [main_dict[col_name_dir[2]]]
+os_type_list = [main_dict[col_name_dir[3]]]
 
 write_to_csv('os_prod_list.csv', os_prod_list)
 write_to_csv('os_name_list.csv', os_name_list)
