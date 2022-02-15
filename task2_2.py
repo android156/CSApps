@@ -10,7 +10,7 @@ import datetime
 
 
 def read_json_orders():
-    with open('orders.json', 'r') as json_file:
+    with open('orders.json', 'r', encoding='cp1251') as json_file:
         json_data = json.load(json_file)
     return json_data
 
